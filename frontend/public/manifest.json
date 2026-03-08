@@ -1,0 +1,26 @@
+{
+  "name": "BuffQuest",
+  "short_name": "BuffQuest",
+  "description": "A location-based quest board for CU Boulder",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#060a14",
+  "theme_color": "#060a14",
+  "orientation": "portrait-primary",
+  "categories": ["social", "education"],
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

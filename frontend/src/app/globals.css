@@ -1,0 +1,325 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  
+  /* System-Wide Safe Area Variables */
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+
+  /* Fluid Typography & Dynamic Scaling */
+  --fluid-min-width: 320;
+  --fluid-max-width: 1024;
+  --fluid-screen: 100vw;
+  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));
+
+  /* BuffQuest Color Palette */
+  --bq-gold: #FFD60A;
+  --bq-gold-deep: #FFB900;
+  --bq-purple: #A855F7;
+  --bq-blue: #3B82F6;
+  --bq-pink: #EC4899;
+  --bq-green: #22C55E;
+  --bq-dark: #0a0f1a;
+  --bq-dark-card: rgba(0, 0, 0, 0.45);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  
+  /* Prevent overscroll bounce on mobile PWAs */
+  overscroll-behavior-y: none;
+  
+  /* PWA Touch Optimizations */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+  
+  /* Safe area padding is handled PER-PAGE, not on body,
+     to avoid double-padding and allow full-bleed layouts (map). */
+
+  /* Fluid Base Font Size calculation */
+  font-size: clamp(14px, calc(14px + (18 - 14) * var(--fluid-bp)), 18px);
+}
+
+/* Standalone PWA mode detection */
+@media (display-mode: standalone) {
+  body {
+    /* When running as installed PWA, apply user-select none on body
+       to feel more app-like (individual inputs still allow selection) */
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  input, textarea, [contenteditable] {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
+/* ============================================
+   LIQUID GLASS SYSTEM
+   ============================================ */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.liquid-glass-dark {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), inset 0 2px 6px rgba(255, 255, 255, 0.2);
+}
+
+.liquid-glass-gold {
+  background: rgba(255, 214, 10, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 214, 10, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(255, 214, 10, 0.1), inset 0 2px 6px rgba(255, 214, 10, 0.15);
+}
+
+.liquid-glass-red {
+  background: rgba(239, 68, 68, 0.12);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(239, 68, 68, 0.1), inset 0 2px 6px rgba(239, 68, 68, 0.15);
+}
+
+/* ============================================
+   PREMIUM BUTTONS
+   ============================================ */
+.squishy-btn {
+  background: linear-gradient(145deg, #FFD60A, #FFB900);
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15), 0 8px 16px rgba(255, 214, 10, 0.4);
+  transition: all 0.15s ease;
+}
+.squishy-btn:active {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 4px rgba(255, 214, 10, 0.2);
+}
+
+.squishy-btn-danger {
+  background: linear-gradient(145deg, #EF4444, #DC2626);
+  box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15), 0 8px 16px rgba(239, 68, 68, 0.3);
+  transition: all 0.15s ease;
+}
+.squishy-btn-danger:active {
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 4px rgba(239, 68, 68, 0.2);
+}
+
+/* ============================================
+   ORB ANIMATIONS
+   ============================================ */
+.orb-pulse {
+  animation: pulse-orb 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@keyframes pulse-orb {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255, 214, 10, 0.8); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 16px rgba(255, 214, 10, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(255, 214, 10, 0); }
+}
+
+.orb-pulse-green {
+  animation: pulse-orb-green 2s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+}
+
+@keyframes pulse-orb-green {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.8); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* ============================================
+   TEXT EFFECTS
+   ============================================ */
+.inner-glow-text {
+  text-shadow: 0 0 8px rgba(255,255,255,0.6);
+}
+
+.glow-gold {
+  text-shadow: 0 0 12px rgba(255, 214, 10, 0.6);
+}
+
+.glow-purple {
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.6);
+}
+
+/* ============================================
+   AUTH PAGE BACKGROUND
+   ============================================ */
+.auth-bg {
+  background: linear-gradient(135deg, #0a0f1a 0%, #1a1040 50%, #0a0f1a 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-bg::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(ellipse at 30% 20%, rgba(255, 214, 10, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+  animation: auth-drift 20s ease-in-out infinite alternate;
+}
+
+@keyframes auth-drift {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  100% { transform: translate(-3%, -3%) rotate(3deg); }
+}
+
+/* ============================================
+   SPINNER ANIMATION
+   ============================================ */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 3s linear infinite;
+}
+
+/* ============================================
+   REWARD BURST ANIMATION
+   ============================================ */
+@keyframes reward-burst {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-reward-burst {
+  animation: reward-burst 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   SLIDE-IN ANIMATIONS
+   ============================================ */
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slide-out-right {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+
+.toast-enter {
+  animation: slide-in-right 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toast-exit {
+  animation: slide-out-right 0.3s ease-in forwards;
+}
+
+/* ============================================
+   MEDAL GLOW EFFECTS
+   ============================================ */
+.medal-gold {
+  box-shadow: 0 0 20px rgba(255, 214, 10, 0.4), inset 0 0 10px rgba(255, 214, 10, 0.15);
+}
+
+.medal-silver {
+  box-shadow: 0 0 16px rgba(192, 192, 192, 0.3), inset 0 0 8px rgba(192, 192, 192, 0.1);
+}
+
+.medal-bronze {
+  box-shadow: 0 0 16px rgba(205, 127, 50, 0.3), inset 0 0 8px rgba(205, 127, 50, 0.1);
+}
+
+/* ============================================
+   CUSTOM RANGE SLIDER
+   ============================================ */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #FFD60A, #FFB900);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255, 214, 10, 0.5);
+  border: 2px solid white;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  transform: scale(1.2);
+}
+
+/* ============================================
+   MAPBOX OVERRIDES
+   ============================================ */
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-bottom-left {
+  opacity: 0.6;
+}
+.mapboxgl-ctrl-attrib {
+  background: transparent !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 10px !important;
+}
+.mapboxgl-ctrl-attrib a {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Override Mapbox Popup default white background and padding */
+.liquid-popup .mapboxgl-popup-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 32px !important;
+}
+.liquid-popup .mapboxgl-popup-tip {
+  border-top-color: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(15px);
+}
+.liquid-popup.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip {
+  border-top-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
